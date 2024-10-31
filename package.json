@@ -1,0 +1,19 @@
+{
+  "name": "thepnkinn",
+  "version": "1.0.0",
+  "description": "thepnkinn apratments reservation",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js"
+  },
+  "author": "Jahbyte Technologies",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.0",
+    "nodemailer": "^6.9.16",
+    "pug": "^3.0.3"
+  }
+}
