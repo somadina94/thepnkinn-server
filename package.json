@@ -1,19 +1,23 @@
 {
   "name": "thepnkinn",
   "version": "1.0.0",
-  "description": "thepnkinn apratments reservation",
+  "description": "thepnkinn apartments reservation",
   "main": "server.js",
   "scripts": {
-    "test": "nodemon server.js"
+    "start": "nodemon server.js"
   },
   "author": "Jahbyte Technologies",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "html-to-text": "^9.0.5",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.0",
     "nodemailer": "^6.9.16",
-    "pug": "^3.0.3"
+    "pug": "^3.0.3",
+    "validator": "^13.12.0"
   }
 }
