@@ -90,9 +90,12 @@ exports.getAllBookings = catchAsync(async (req, res, next) => {
   // Get all bookings if role is admin and only user bookings if role is user
   let booking;
   if (req.user.role === "admin") {
-    booking = await Booking.find();
+    booking = await Booking.find().populate("accomodation");
   } else {
-    booking = await Booking.find({ user: req.user._id });
+    booking = await Booking.find({ user: req.user._id }).populate(
+      "accomodation",
+      "name category pricePerNight location mainPhoto"
+    );
   }
 
   // Send response
