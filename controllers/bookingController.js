@@ -26,7 +26,7 @@ exports.createBooking = catchAsync(async (req, res, next) => {
 
   // Create booking
   let cautionFee = 0;
-  if (req.body.category === "apartment") {
+  if (accomodation.category === "apartment") {
     cautionFee = +process.env.CAUTION_FEE;
   }
   const booking = await Booking.create({
