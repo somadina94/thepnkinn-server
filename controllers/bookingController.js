@@ -23,7 +23,12 @@ exports.createBooking = catchAsync(async (req, res, next) => {
       new AppError("Chosen dates are unavialble, please choose new dates", 401)
     );
   }
+
   // Create booking
+  let cautionFee = 0;
+  if (req.body.category === "apartment") {
+    cautionFee = +process.env.CAUTION_FEE;
+  }
   const booking = await Booking.create({
     accomodation: req.body.accomodation,
     user: req.user._id,
@@ -34,6 +39,7 @@ exports.createBooking = catchAsync(async (req, res, next) => {
     endDate: req.body.endDate,
     numAdults: req.body.numAdults,
     numKids: req.body.numKids,
+    cautionFee,
   });
 
   // Update accomodation bookedDates

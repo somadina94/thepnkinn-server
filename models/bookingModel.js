@@ -16,6 +16,7 @@ const bookingSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Please provide an amount for this booking"],
     },
+    cautionFee: Number,
     startDate: {
       type: Date,
       required: [true, "Please provide a start date for this booking"],
