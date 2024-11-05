@@ -12,17 +12,17 @@ exports.createBooking = catchAsync(async (req, res, next) => {
     _id: req.body.accomodation,
   });
 
-  if (
-    !helpers.checkAvailability(
-      accomodation.bookedDates,
-      req.body.startDate,
-      req.body.endDate
-    )
-  ) {
-    return next(
-      new AppError("Chosen dates are unavialble, please choose new dates", 401)
-    );
-  }
+  // if (
+  //   !helpers.checkAvailability(
+  //     accomodation.bookedDates,
+  //     req.body.startDate,
+  //     req.body.endDate
+  //   )
+  // ) {
+  //   return next(
+  //     new AppError("Chosen dates are unavialble, please choose new dates", 401)
+  //   );
+  // }
 
   // Create booking
   let cautionFee = 0;
@@ -71,12 +71,13 @@ exports.createBooking = catchAsync(async (req, res, next) => {
     } for ${booking.numAdults} adults and ${
       booking.numKids
     } kids.\nPayment is on arrival at our address and the sum of #${helpers.formatAmount(
-      booking.amount
+      booking.amount + +process.env.CAUTION_FEE
     )}.\nYou booked from ${helpers.formatDate(
       booking.startDate
     )} to ${helpers.formatDate(
       booking.endDate
-    )}.\nFor more information contact support team`;
+    )}.\nWe will reach out to you soon!\nFor more information contact support +2347062140248/+2349087866624 or +2347062098265/ 
++2349087866625`;
     await new Email(req.user, userMsg).sendBookingSuccess();
   } catch (error) {
     console.log(error.message);
