@@ -86,7 +86,8 @@ exports.createBooking = catchAsync(async (req, res, next) => {
   // Send response
   res.status(201).json({
     status: "success",
-    message: "Reservation made successfully",
+    message:
+      "Reservation made successfully! We will get intouch with you shortly",
     data: {
       booking,
     },
