@@ -16,6 +16,8 @@ router.post(
 router.get("/getAll", accomodationController.getAllAccomodations);
 router.get("/getOne/:id", accomodationController.getOneAccomodation);
 
+router.use(authController.protect);
+
 router.patch(
   "/update/:id",
   authController.restrictTo("admin"),
