@@ -72,3 +72,14 @@ exports.getMe = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+// DELETE USER
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  // Delete user
+  await User.findByIdAndDelete(req.params.id);
+
+  // Send response
+  res.status(204).json({
+    status: "success",
+  });
+});

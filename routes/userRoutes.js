@@ -30,4 +30,10 @@ router.get("/me", userController.getMe);
 
 router.patch("/updateMe", userController.updateMe);
 
+router.delete(
+  "/delete/:id",
+  authController.restrictTo("admin"),
+  userController.deleteUser
+);
+
 module.exports = router;
