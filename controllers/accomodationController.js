@@ -117,3 +117,22 @@ exports.deleteAccomodation = catchAsync(async (req, res, next) => {
     message: "accomodation deleted successfully",
   });
 });
+
+// UPDATE ACCOMODATION
+exports.updateAccomodation = catchAsync(async (req, res, next) => {
+  // Update
+  const updatedAccomodation = await Accomodation.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true }
+  );
+
+  // Send response
+  res.status(200).json({
+    status: "success",
+    message: "Accomodation updated successfully",
+    data: {
+      accomodation: updatedAccomodation,
+    },
+  });
+});

@@ -16,6 +16,12 @@ router.post(
 router.get("/getAll", accomodationController.getAllAccomodations);
 router.get("/getOne/:id", accomodationController.getOneAccomodation);
 
+router.patch(
+  "/update/:id",
+  authController.restrictTo("admin"),
+  accomodationController.updateAccomodation
+);
+
 router.delete("/delete/:id", accomodationController.deleteAccomodation);
 
 module.exports = router;
