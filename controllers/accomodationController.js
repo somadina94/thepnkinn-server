@@ -1,4 +1,5 @@
 const Accomodation = require("../models/accomodationModel");
+const Booking = require("../models/bookingModel");
 const catchAsync = require("../util/catchAsync");
 const AppError = require("../util/appError");
 const multer = require("multer");
@@ -109,6 +110,12 @@ exports.getOneAccomodation = catchAsync(async (req, res, next) => {
 // DELETE ACCOMODATION
 exports.deleteAccomodation = catchAsync(async (req, res, next) => {
   // Delete
+  const bookings = await Booking.find({ accomodation: req.params.id });
+
+  for (const booking of bookings) {
+    await Booking.findByIdAndDelete(booking._id);
+  }
+
   await Accomodation.findByIdAndDelete(req.params.id);
 
   // Send response
