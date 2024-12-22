@@ -56,6 +56,17 @@ const bookingSchema = new mongoose.Schema(
   }
 );
 
+bookingSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "user",
+    select: "name email",
+  }).populate({
+    path: "accomodation",
+    select: "name category pricePerNight location mainPhoto",
+  });
+  next();
+});
+
 const Booking = mongoose.model("Booking", bookingSchema);
 
 module.exports = Booking;

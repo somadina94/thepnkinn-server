@@ -71,7 +71,7 @@ exports.createBooking = catchAsync(async (req, res, next) => {
     } for ${booking.numAdults} adults and ${
       booking.numKids
     } kids.\nPayment is on arrival at our address and the sum of #${helpers.formatAmount(
-      booking.amount + +process.env.CAUTION_FEE
+      booking.amount + cautionFee
     )}.\nYou booked from ${helpers.formatDate(
       booking.startDate
     )} to ${helpers.formatDate(
@@ -99,15 +99,9 @@ exports.getAllBookings = catchAsync(async (req, res, next) => {
   // Get all bookings if role is admin and only user bookings if role is user
   let booking;
   if (req.user.role === "admin") {
-    booking = await Booking.find().populate(
-      "accomodation",
-      "name category pricePerNight location mainPhoto"
-    );
+    booking = await Booking.find();
   } else {
-    booking = await Booking.find({ user: req.user._id }).populate(
-      "accomodation",
-      "name category pricePerNight location mainPhoto"
-    );
+    booking = await Booking.find({ user: req.user._id });
   }
 
   // Send response
