@@ -36,6 +36,10 @@ const accomodationSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  position: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const Accomodation = mongoose.model("Accomodation", accomodationSchema);
