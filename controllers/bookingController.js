@@ -58,7 +58,7 @@ exports.createBooking = catchAsync(async (req, res, next) => {
       email: req.user.email,
       phone: req.user.phone,
       pricePerNight: accomodation.pricePerNight,
-      cautionFee,
+      caution: cautionFee,
       total: helpers.formatAmount(booking.amount),
       adults: booking.numAdults,
       kids: booking.numKids,
