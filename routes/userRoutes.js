@@ -29,6 +29,7 @@ router.get(
 router.get("/me", userController.getMe);
 
 router.patch("/updateMe", userController.updateMe);
+router.patch("/make-admin/:id", userController.makeAdmin);
 
 router.delete(
   "/delete/:id",

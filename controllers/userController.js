@@ -5,7 +5,7 @@ const AppError = require("../util/appError");
 // GET ALL USERS
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   // Fetch users
-  const users = await User.find({ role: "user" });
+  const users = await User.find();
 
   // Send response
   res.status(200).json({
@@ -81,5 +81,18 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
   // Send response
   res.status(204).json({
     status: "success",
+  });
+});
+
+exports.makeAdmin = catchAsync(async (req, res, next) => {
+  // Make admin
+  const newAdmin = await User.findById(req.params.id);
+  newAdmin.role = "admin";
+  await newAdmin.save({ validateBeforeSave: false });
+
+  // Send response
+  res.status(200).json({
+    status: "success",
+    message: "Client made admin successfully",
   });
 });
