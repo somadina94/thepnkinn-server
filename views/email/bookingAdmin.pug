@@ -1,0 +1,31 @@
+extends baseEmail 
+
+block content 
+    p Hi #{firstName},
+        p A client just booked an accomodation.
+        p #{" "}
+        p Name: #{booking.client}.
+        p ...........................................
+        p Email address: #{booking.email}.
+        p ...........................................
+        p Phone number: #{booking.phone}.
+        p ...........................................
+        p Accomodation: #{booking.acc}.
+        p ...........................................
+        p Price Per Night: ##{booking.pricePerNight}.
+        p ...........................................
+        p Caution Fee: ##{booking.caution}.
+        p ...........................................
+        p Total Price ##{booking.total}.
+        p ...........................................
+        p Adults: #{booking.adults}.
+        p ...........................................
+        p Kids: #{booking.kids}.
+        table.btn.btn-primary(role='presentation' border='0' cellpadding='0' cellspacing='0')
+            tbody
+                tr
+                    td(align='left')
+                        table(role='presentation' border='0' cellpadding='0' cellspacing='0')
+                            tbody
+                                tr
+                                    td

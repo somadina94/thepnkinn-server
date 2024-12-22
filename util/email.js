@@ -3,11 +3,12 @@ const pug = require("pug");
 const { htmlToText } = require("html-to-text");
 
 module.exports = class Email {
-  constructor(user, message) {
+  constructor(user, message, booking) {
     this.message = message;
     this.to = user.email;
     this.firstName = user.name.split(" ")[0];
     this.from = `${process.env.COMPANY_NAME} <${process.env.EMAIL_FROM}>`;
+    this.booking = booking;
   }
 
   newTransport() {
@@ -29,6 +30,7 @@ module.exports = class Email {
     const html = pug.renderFile(`${__dirname}/../views/email/${template}.pug`, {
       message: this.message,
       firstName: this.firstName,
+      booking: this.booking,
       subject,
     });
 
@@ -56,7 +58,10 @@ module.exports = class Email {
     );
   }
 
-  async sendBookingSuccess() {
-    await this.send("booking", `Accomodation reservation success`);
+  async sendBookingSuccessAdmin() {
+    await this.send("bookingAdmin", `Accomodation reservation success`);
+  }
+  async sendBookingSuccessClient() {
+    await this.send("bookingClient", `Accomodation reservation success`);
   }
 };

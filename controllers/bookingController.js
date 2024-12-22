@@ -52,43 +52,28 @@ exports.createBooking = catchAsync(async (req, res, next) => {
 
   // Send email updates to user and admin
   try {
+    const data = {
+      acc: accomodation.name,
+      client: req.user.name,
+      email: req.user.email,
+      phone: req.user.phone,
+      pricePerNight: accomodation.pricePerNight,
+      cautionFee,
+      total: helpers.formatAmount(booking.amount),
+      adults: booking.numAdults,
+      kids: booking.numKids,
+    };
     // Send to admin
-    const adminMsg = `A customer just booked an accomodation.\n\nName: ${
-      req.user.name
-    }\n\nAccomodation: ${accomodation.name}\n\nPrice Per Night: #${
-      accomodation.pricePerNight
-    }\n\nEmail address: ${req.user.email}\n\nPhone number: ${
-      req.user.phone
-    }\n\nTotalamount: #${helpers.formatAmount(
-      booking.amount
-    )}\n\nCaution Fee: #${cautionFee}\n\nStart date: ${
-      booking.startDate
-    }\n\nEnd date: ${booking.endDate}\n\nAdults: ${
-      booking.numAdults
-    }\n\nKids: ${booking.numKids}`;
     await new Email(
       {
         name: `Admin ${process.env.COMPANY_NAME}`,
         email: process.env.ADMIN_EMAIL,
       },
-      adminMsg
-    ).sendBookingSuccess();
+      "",
+      data
+    ).sendBookingSuccessAdmin();
     // Send to user
-    const userMsg = `You have successfully made a reservation for our accomodation.\n\n Name: ${
-      accomodation.name
-    }\n\nPrice Per Night: #${accomodation.pricePerNight}\n\nAdults: ${
-      booking.numAdults
-    } adults\n\nKids: ${
-      booking.numKids
-    }\n\nTotal amount: #${helpers.formatAmount(
-      booking.amount
-    )}\n\nCaution Fee: #${cautionFee}\n\nStart date: ${helpers.formatDate(
-      booking.startDate
-    )}\n\nEnd date: ${helpers.formatDate(
-      booking.endDate
-    )}\n\nWe will reach out to you soon!\n\nFor more information contact support +2347062140248/+2349087866624 or +2347062098265/ 
-+2349087866625`;
-    await new Email(req.user, userMsg).sendBookingSuccess();
+    await new Email(req.user, "", data).sendBookingSuccessClient();
   } catch (error) {
     console.log(error.message);
   }
