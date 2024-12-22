@@ -53,11 +53,19 @@ exports.createBooking = catchAsync(async (req, res, next) => {
   // Send email updates to user and admin
   try {
     // Send to admin
-    const adminMsg = `A customer ${req.user.name} booked ${
-      accomodation.name
-    } and his/her email address is ${
-      req.user.email
-    } and total booking amount is #${helpers.formatAmount(booking.amount)}`;
+    const adminMsg = `A customer just booked an accomodation.\n\nName: ${
+      req.user.name
+    }\n\nAccomodation: ${accomodation.name}\n\nPrice Per Night: #${
+      accomodation.pricePerNight
+    }\n\nEmail address: ${req.user.email}\n\nPhone number: ${
+      req.user.phone
+    }\n\nTotalamount: #${helpers.formatAmount(
+      booking.amount
+    )}\n\nCaution Fee: #${cautionFee}\n\nStart date: ${
+      booking.startDate
+    }\n\nEnd date: ${booking.endDate}\n\nAdults: ${
+      booking.numAdults
+    }\n\nKids: ${booking.numKids}`;
     await new Email(
       {
         name: `Admin ${process.env.COMPANY_NAME}`,
@@ -66,17 +74,19 @@ exports.createBooking = catchAsync(async (req, res, next) => {
       adminMsg
     ).sendBookingSuccess();
     // Send to user
-    const userMsg = `You have successfully made a reservation for our accomodation named ${
+    const userMsg = `You have successfully made a reservation for our accomodation.\n\n Name: ${
       accomodation.name
-    } for ${booking.numAdults} adults and ${
+    }\n\nPrice Per Night: #${accomodation.pricePerNight}\n\nAdults: ${
+      booking.numAdults
+    } adults\n\nKids: ${
       booking.numKids
-    } kids.\nPayment is on arrival at our address and the sum of #${helpers.formatAmount(
-      booking.amount + cautionFee
-    )}.\nYou booked from ${helpers.formatDate(
+    }\n\nTotal amount: #${helpers.formatAmount(
+      booking.amount
+    )}\n\nCaution Fee: #${cautionFee}\n\nStart date: ${helpers.formatDate(
       booking.startDate
-    )} to ${helpers.formatDate(
+    )}\n\nEnd date: ${helpers.formatDate(
       booking.endDate
-    )}.\nWe will reach out to you soon!\nFor more information contact support +2347062140248/+2349087866624 or +2347062098265/ 
+    )}\n\nWe will reach out to you soon!\n\nFor more information contact support +2347062140248/+2349087866624 or +2347062098265/ 
 +2349087866625`;
     await new Email(req.user, userMsg).sendBookingSuccess();
   } catch (error) {
