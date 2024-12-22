@@ -31,13 +31,13 @@ const bookingSchema = new mongoose.Schema(
     numAdults: {
       type: Number,
       min: 1,
-      max: 3,
+      max: 25,
       required: [true, "Please provide number of adults for this booking"],
     },
     numAdults: {
       type: Number,
-      min: 1,
-      max: 3,
+      min: 0,
+      max: 25,
       required: [true, "Please provide number of adults for this booking"],
     },
     numKids: {
