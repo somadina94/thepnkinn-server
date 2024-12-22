@@ -44,10 +44,10 @@ exports.createBooking = catchAsync(async (req, res, next) => {
   });
 
   // Update accomodation bookedDates
-  accomodation.bookedDates.push({
-    startDate: booking.startDate,
-    endDate: booking.endDate,
-  });
+  // accomodation.bookedDates.push({
+  //   startDate: booking.startDate,
+  //   endDate: booking.endDate,
+  // });
   await accomodation.save({ validateBeforeSave: false });
 
   // Send email updates to user and admin
