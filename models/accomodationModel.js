@@ -40,6 +40,10 @@ const accomodationSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  cautionFee: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const Accomodation = mongoose.model("Accomodation", accomodationSchema);

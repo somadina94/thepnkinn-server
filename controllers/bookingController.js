@@ -25,10 +25,7 @@ exports.createBooking = catchAsync(async (req, res, next) => {
   // }
 
   // Create booking
-  let cautionFee = 0;
-  if (accomodation.category === "apartment") {
-    cautionFee = +process.env.CAUTION_FEE;
-  }
+
   const booking = await Booking.create({
     accomodation: req.body.accomodation,
     user: req.user._id,
@@ -40,7 +37,7 @@ exports.createBooking = catchAsync(async (req, res, next) => {
     endDate: req.body.endDate,
     numAdults: req.body.numAdults,
     numKids: req.body.numKids,
-    cautionFee,
+    cautionFee: accomodation.cautionFee,
   });
 
   // Update accomodation bookedDates
@@ -58,7 +55,7 @@ exports.createBooking = catchAsync(async (req, res, next) => {
       email: req.user.email,
       phone: req.user.phone,
       pricePerNight: accomodation.pricePerNight,
-      caution: cautionFee,
+      caution: accomodation.cautionFee,
       total: helpers.formatAmount(booking.amount),
       adults: booking.numAdults,
       kids: booking.numKids,

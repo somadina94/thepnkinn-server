@@ -63,6 +63,7 @@ exports.createAccomodation = catchAsync(async (req, res, next) => {
     gallery,
     category: req.body.category,
     position: req.body.position,
+    cautionFee: req.body.cautionFee,
   });
 
   // Send response
