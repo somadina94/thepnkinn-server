@@ -62,6 +62,8 @@ exports.createBooking = catchAsync(async (req, res, next) => {
       total: helpers.formatAmount(booking.amount),
       adults: booking.numAdults,
       kids: booking.numKids,
+      startDate: helpers.formatDate(booking.startDate),
+      endDate: helpers.formatDate(booking.endDate),
     };
     // Send to admin
     await new Email(
