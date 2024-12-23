@@ -32,7 +32,7 @@ exports.createBooking = catchAsync(async (req, res, next) => {
     amount:
       helpers.getDaysBetweenDates(req.body.startDate, req.body.endDate) *
         accomodation.pricePerNight +
-      cautionFee,
+      accomodation.cautionFee,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
     numAdults: req.body.numAdults,
